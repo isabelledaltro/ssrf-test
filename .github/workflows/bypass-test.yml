@@ -1,0 +1,19 @@
+name: Branch Protection Bypass Test
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  bypass:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: |
+          echo "bypass test" > bypass_via_actions.txt
+          git config user.name "test"
+          git config user.email "test@test.com"
+          git add .
+          git commit -m "bypass via actions"
+          git push origin main
